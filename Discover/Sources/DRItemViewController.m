@@ -45,6 +45,9 @@
 {
     [super viewDidLoad];
     
+    self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
+
+    
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Post"
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self

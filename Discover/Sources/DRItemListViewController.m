@@ -46,6 +46,8 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated

@@ -7,6 +7,9 @@
 //
 
 @interface DRItemTableViewCell : PFTableViewCell
+{
+    UIView *_locationView;
+}
 
 + (CGFloat)preferredHeightForObject:(PFObject *)object width:(CGFloat)width;
 

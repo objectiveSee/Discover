@@ -14,9 +14,16 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        
+//        self.textLabel.backgroundColor = [UIColor clearColor];
+        
         self.detailTextLabel.numberOfLines = 0;
         self.detailTextLabel.font = [UIFont systemFontOfSize:12];
-//        self.detailTextLabel.lineBreakMode = UILineBreakModeWordWrap;
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
+//        self.detailTextLabel.backgroundColor = [UIColor clearColor];
+        
+//        self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"light-bk"]];
     }
     return self;
 }
@@ -28,7 +35,7 @@
 {
     [super layoutSubviews];
     
-    CGFloat height = self.frame.size.height;
+//    CGFloat height = self.frame.size.height;
     CGFloat width = self.frame.size.width;
     
     [self.textLabel setFrame:CGRectMake(0.0f, 0.0f, width, 20)];
@@ -44,8 +51,17 @@
     NSString *text = [object objectForKey:@"text"];
     NSParameterAssert(text);
     
+//    BOOL hasRightColumnObject = NO;
+//    if ( [object objectForKey:@"location"] != nil )
+//    {
+//        hasRightColumnObject = YES;
+//    }
+//    if ( hasRightColumnObject == YES )
+//    {
+//        width -= 50;
+//    }
+    
     CGSize size = [text sizeWithFont:[UIFont systemFontOfSize:12] constrainedToSize:CGSizeMake(width, 10000)];
-    NSLog(@"Size = %@ (width = %f) for String: %@", NSStringFromCGSize(size), width, text);
     return 20 + size.height;
 }
 

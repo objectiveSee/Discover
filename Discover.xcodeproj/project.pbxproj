@@ -32,6 +32,9 @@
 		300290A715946624004774E4 /* DRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A515946623004774E4 /* DRItemViewController.m */; };
 		30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4808E15B132100001B981 /* DRSignUpViewController.m */; };
 		30E4809515B13F2F0001B981 /* DRItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */; };
+		30E4809915B148CD0001B981 /* light-bk.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E4809715B148CD0001B981 /* light-bk.png */; };
+		30E4809A15B148CD0001B981 /* light-bk@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E4809815B148CD0001B981 /* light-bk@2x.png */; };
+		30E4809D15B1490E0001B981 /* UIColor+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4809C15B1490E0001B981 /* UIColor+Additions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -71,6 +74,10 @@
 		30E4808E15B132100001B981 /* DRSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRSignUpViewController.m; sourceTree = "<group>"; };
 		30E4809315B13F2F0001B981 /* DRItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemTableViewCell.h; sourceTree = "<group>"; };
 		30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemTableViewCell.m; sourceTree = "<group>"; };
+		30E4809715B148CD0001B981 /* light-bk.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light-bk.png"; sourceTree = "<group>"; };
+		30E4809815B148CD0001B981 /* light-bk@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "light-bk@2x.png"; sourceTree = "<group>"; };
+		30E4809B15B1490D0001B981 /* UIColor+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIColor+Additions.h"; sourceTree = "<group>"; };
+		30E4809C15B1490E0001B981 /* UIColor+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIColor+Additions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				3002906E15942C97004774E4 /* Sources */,
+				30E4809615B148CC0001B981 /* Resources */,
 				3002904615942BD4004774E4 /* Supporting Files */,
 				3002903E15942BD4004774E4 /* Frameworks */,
 				3002903C15942BD4004774E4 /* Products */,
@@ -167,9 +175,21 @@
 				3002908915943A2D004774E4 /* DRSettingsViewController.h */,
 				3002908A15943A2D004774E4 /* DRSettingsViewController.m */,
 				3002908B15943A2D004774E4 /* DRSettingsViewController.xib */,
+				30E4809B15B1490D0001B981 /* UIColor+Additions.h */,
+				30E4809C15B1490E0001B981 /* UIColor+Additions.m */,
 			);
 			name = Sources;
 			path = Discover/Sources;
+			sourceTree = "<group>";
+		};
+		30E4809615B148CC0001B981 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				30E4809715B148CD0001B981 /* light-bk.png */,
+				30E4809815B148CD0001B981 /* light-bk@2x.png */,
+			);
+			name = Resources;
+			path = Discover/Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -228,6 +248,8 @@
 				3002908D15943A2D004774E4 /* DRSettingsViewController.xib in Resources */,
 				3002909C159444C9004774E4 /* DRItemCreateViewController.xib in Resources */,
 				300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */,
+				30E4809915B148CD0001B981 /* light-bk.png in Resources */,
+				30E4809A15B148CD0001B981 /* light-bk@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -247,6 +269,7 @@
 				300290A715946624004774E4 /* DRItemViewController.m in Sources */,
 				30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */,
 				30E4809515B13F2F0001B981 /* DRItemTableViewCell.m in Sources */,
+				30E4809D15B1490E0001B981 /* UIColor+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
