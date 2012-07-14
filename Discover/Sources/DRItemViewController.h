@@ -10,7 +10,7 @@
 
 #import "DRItemCreateViewController.h"
 
-@interface DRItemViewController : PFQueryTableViewController <DRItemCreateViewControllerDelegate>
+@interface DRItemViewController : PFQueryTableViewController <DRItemCreateViewControllerDelegate, MKMapViewDelegate>
 {
     PFObject *_item;
     MKMapView *_mapView;

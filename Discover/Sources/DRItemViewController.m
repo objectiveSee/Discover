@@ -8,9 +8,11 @@
 
 #import "DRItemViewController.h"
 #import "DRItemTableViewCell.h"
+#import "DRMessageAnnotation.h"
 
 #import "UIView+Origami.h"
 #import "NSDate+Additions.h"
+#import "MKMapView+ZoomLevel.h"
 
 @interface DRItemViewController ()
 
@@ -106,17 +108,42 @@ static const CGFloat kDRMapHeight = 200.0f;
     return 44.0f;
 }
 
-//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-//{
-//    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
-//    v.backgroundColor = [UIColor redColor];
-//    return [v autorelease];
-//}
-//
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-//{
-//    return 40;
-//}
+#pragma mark -
+#pragma mark MKMapViewDelegate
+
+- (MKAnnotationView *)mapView:(MKMapView *)map viewForAnnotation:(id <MKAnnotation>)annotation
+{
+    if ([annotation isKindOfClass:[MKUserLocation class]] == YES)
+    {
+        return nil;  //return nil to use default blue dot view
+    }
+    else if ( [annotation isKindOfClass:[DRMessageAnnotation class]] == NO )
+    {
+        NSLog(@"unrecognized annotation. Class = %@", [annotation class]);
+        return nil;
+    }
+    
+    static NSString *AnnotationViewID = @"DRMessageAnnotationID";
+    
+    MKPinAnnotationView *annotationView = (MKPinAnnotationView *)[self.mapView dequeueReusableAnnotationViewWithIdentifier:AnnotationViewID];
+    if (annotationView == nil)
+    {
+        annotationView = [[[MKPinAnnotationView alloc] initWithAnnotation:annotation
+                                                       reuseIdentifier:AnnotationViewID] autorelease];
+        annotationView.canShowCallout = YES;
+        UIButton *calloutButton = [UIButton buttonWithType:UIButtonTypeDetailDisclosure];
+        annotationView.rightCalloutAccessoryView = calloutButton;
+        annotationView.pinColor = MKPinAnnotationColorRed;
+    }    
+    annotationView.annotation = annotation;
+    
+    return annotationView;
+}   
+
+- (void)mapView:(MKMapView *)mapView annotationView:(MKAnnotationView *)view calloutAccessoryControlTapped:(UIControl *)control
+{
+    NSLog(@"%s called", __FUNCTION__);
+}
 
 #pragma mark - 
 #pragma mark Parse
@@ -124,8 +151,33 @@ static const CGFloat kDRMapHeight = 200.0f;
 - (void)objectsDidLoad:(NSError *)error {
     [super objectsDidLoad:error];
     
-    NSLog(@"%s called", __FUNCTION__);
-    // This method is called every time objects are loaded from Parse via the PFQuery
+    // set up some vars to keep track of the zoom region.
+    /// @todo This is hacky. Instead, find the regions by doing top left/bottom right coords
+    __block CLLocationCoordinate2D firstCord;
+    
+    // find all geo points in the messages and add them as annotations to the map
+    NSMutableArray *newAnnotations = [[NSMutableArray alloc] init];
+
+    [self.objects enumerateObjectsUsingBlock:^(PFObject *obj, NSUInteger idx, BOOL *stop)
+     {
+         NSAssert([obj isKindOfClass:[PFObject class]] == YES, @"Invalid class");
+         PFGeoPoint *geoPoint = [obj objectForKey:@"location"];
+         if ( geoPoint != nil )
+         {
+             if ( idx == 0 )
+             {
+                 firstCord = CLLocationCoordinate2DMake(geoPoint.latitude, geoPoint.longitude);
+             }
+             DRMessageAnnotation *annotation = [[DRMessageAnnotation alloc] initWithMessage:obj];
+             [newAnnotations addObject:annotation];
+         }
+     }];
+
+    [self.mapView removeAnnotations:self.mapView.annotations];
+    [self.mapView addAnnotations:newAnnotations];
+    [newAnnotations release];
+    
+    [self.mapView setCenterCoordinate:firstCord zoomLevel:12 animated:YES];
 }
 
 - (void)objectsWillLoad {

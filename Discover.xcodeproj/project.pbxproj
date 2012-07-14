@@ -30,6 +30,9 @@
 		300290A215944A62004774E4 /* DRPickLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A015944A62004774E4 /* DRPickLocationViewController.m */; };
 		300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A115944A62004774E4 /* DRPickLocationViewController.xib */; };
 		300290A715946624004774E4 /* DRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A515946623004774E4 /* DRItemViewController.m */; };
+		3012895C15B234B900810E2D /* DRMessageAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 3012895B15B234B900810E2D /* DRMessageAnnotation.m */; };
+		3012895E15B2361800810E2D /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3012895D15B2361800810E2D /* CoreLocation.framework */; };
+		3012896115B23C9E00810E2D /* MKMapView+ZoomLevel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3012896015B23C9E00810E2D /* MKMapView+ZoomLevel.m */; };
 		302E6F8A15B18F24001C439B /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 302E6F8915B18F24001C439B /* NSDate+Additions.m */; };
 		308ABA4D15B1707B00BB7739 /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 308ABA2415B1707B00BB7739 /* UIView+Origami.m */; };
 		30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4808E15B132100001B981 /* DRSignUpViewController.m */; };
@@ -74,6 +77,11 @@
 		300290A115944A62004774E4 /* DRPickLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRPickLocationViewController.xib; sourceTree = "<group>"; };
 		300290A415946623004774E4 /* DRItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemViewController.h; sourceTree = "<group>"; };
 		300290A515946623004774E4 /* DRItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemViewController.m; sourceTree = "<group>"; };
+		3012895A15B234B900810E2D /* DRMessageAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRMessageAnnotation.h; sourceTree = "<group>"; };
+		3012895B15B234B900810E2D /* DRMessageAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRMessageAnnotation.m; sourceTree = "<group>"; };
+		3012895D15B2361800810E2D /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3012895F15B23C9E00810E2D /* MKMapView+ZoomLevel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKMapView+ZoomLevel.h"; sourceTree = "<group>"; };
+		3012896015B23C9E00810E2D /* MKMapView+ZoomLevel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKMapView+ZoomLevel.m"; sourceTree = "<group>"; };
 		302E6F8815B18F24001C439B /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
 		302E6F8915B18F24001C439B /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
 		308ABA2315B1707B00BB7739 /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Origami.h"; path = "XYOrigami/UIView+Origami.h"; sourceTree = "<group>"; };
@@ -96,6 +104,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3012895E15B2361800810E2D /* CoreLocation.framework in Frameworks */,
 				3002909E15944520004774E4 /* MapKit.framework in Frameworks */,
 				3002908815942E2B004774E4 /* QuartzCore.framework in Frameworks */,
 				3002908615942E22004774E4 /* Security.framework in Frameworks */,
@@ -137,6 +146,7 @@
 		3002903E15942BD4004774E4 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3012895D15B2361800810E2D /* CoreLocation.framework */,
 				3002909D15944520004774E4 /* MapKit.framework */,
 				3002908715942E2B004774E4 /* QuartzCore.framework */,
 				3002908515942E22004774E4 /* Security.framework */,
@@ -171,6 +181,7 @@
 				3002906F15942C97004774E4 /* DRAppDelegate.h */,
 				3002907015942C97004774E4 /* DRAppDelegate.m */,
 				302E6F8615B18EDA001C439B /* Controllers */,
+				3012895815B2349600810E2D /* Annotations */,
 				302E6F8715B18EF8001C439B /* Cells */,
 				302E6F8415B18ECF001C439B /* Categories */,
 			);
@@ -178,9 +189,20 @@
 			path = Discover/Sources;
 			sourceTree = "<group>";
 		};
+		3012895815B2349600810E2D /* Annotations */ = {
+			isa = PBXGroup;
+			children = (
+				3012895A15B234B900810E2D /* DRMessageAnnotation.h */,
+				3012895B15B234B900810E2D /* DRMessageAnnotation.m */,
+			);
+			name = Annotations;
+			sourceTree = "<group>";
+		};
 		302E6F8415B18ECF001C439B /* Categories */ = {
 			isa = PBXGroup;
 			children = (
+				3012895F15B23C9E00810E2D /* MKMapView+ZoomLevel.h */,
+				3012896015B23C9E00810E2D /* MKMapView+ZoomLevel.m */,
 				30E4809B15B1490D0001B981 /* UIColor+Additions.h */,
 				30E4809C15B1490E0001B981 /* UIColor+Additions.m */,
 				302E6F8815B18F24001C439B /* NSDate+Additions.h */,
@@ -333,6 +355,8 @@
 				308ABA4D15B1707B00BB7739 /* UIView+Origami.m in Sources */,
 				302E6F8A15B18F24001C439B /* NSDate+Additions.m in Sources */,
 				4F0444DE15B232C500A4C8B0 /* DRCustomTableViewCell.m in Sources */,
+				3012895C15B234B900810E2D /* DRMessageAnnotation.m in Sources */,
+				3012896115B23C9E00810E2D /* MKMapView+ZoomLevel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
