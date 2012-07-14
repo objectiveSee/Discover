@@ -35,6 +35,8 @@
         
         // The number of objects to show per page
         self.objectsPerPage = 25;
+        
+        self.title = @"Discover";
     }
     return self;
 }

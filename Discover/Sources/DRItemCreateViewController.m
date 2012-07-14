@@ -45,9 +45,17 @@
 {
     [super viewDidAppear:animated];
 
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(_rightBarButtonItemWasPressed:)] autorelease];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(_rightBarButtonItemWasPressed:)] autorelease];    
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-//    [self.titleTextField becomeFirstResponder];
+    if ( self.parentObject != nil )
+    {
+        self.titleTextField.hidden = YES;   // hide if parent. only new items have title
+    }
 }
 
 - (void)viewDidLoad
@@ -105,16 +113,18 @@
 - (void)_rightBarButtonItemWasPressed:(id)sender
 {
     // validate
-    if (( self.titleTextField.text == nil ) || ( self.titleTextField.text.length < 1 ) || ( self.descriptionTextView.text == nil ) || ( self.descriptionTextView.text.length < 1 ))
+    if (( self.descriptionTextView.text == nil ) || ( self.descriptionTextView.text.length < 1 ))
     {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
-                                                        message:@"You didn't type enough"
-                                                       delegate:nil
-                                              cancelButtonTitle:@"Ok"
-                                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
+        NSLog(@"Error. not enough text (description)");
         return;
+    }
+    if (( self.titleTextField.text == nil ) || ( self.titleTextField.text.length < 1 ))
+    {
+        if ( self.titleTextField.hidden == NO )
+        {
+            NSLog(@"Not enough text (title)");
+            return;
+        }
     }
     
     [(UIBarButtonItem *)sender setEnabled:NO];
