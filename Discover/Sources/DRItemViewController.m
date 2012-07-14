@@ -62,6 +62,11 @@
 //    [super viewDidUnload];
 //}
 
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
+{
+    return YES;
+}
+
 #pragma mark -
 #pragma mark UITableViewDelegate
 
@@ -75,6 +80,18 @@
     }
     return 44.0f;
 }
+
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    UIView *v = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 40)];
+//    v.backgroundColor = [UIColor redColor];
+//    return [v autorelease];
+//}
+//
+//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return 40;
+//}
 
 #pragma mark - 
 #pragma mark Parse

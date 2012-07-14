@@ -1,0 +1,3 @@
+[submodule "Discover/Vendors/XYOrigami"]
+	path = Discover/Vendors/XYOrigami
+	url = git://github.com/xyfeng/XYOrigami.git

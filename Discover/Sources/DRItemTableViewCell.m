@@ -34,6 +34,7 @@
         self.dateLabel.textAlignment = UITextAlignmentRight;
         self.dateLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:self.dateLabel];
+        
     }
     return self;
 }
@@ -44,7 +45,6 @@
     
     [super dealloc];
 }
-
 
 #pragma mark -
 #pragma mark UIView
@@ -62,7 +62,6 @@
     
     CGSize size = [self.dateLabel sizeThatFits:CGSizeMake(1000, 1000)]; // using huge numbers
     self.dateLabel.frame = CGRectMake(width-size.width, 0, size.width, size.height);
-    NSLog(@"Frame = %@", NSStringFromCGRect(self.dateLabel.frame));
 }
 
 #pragma mark -
