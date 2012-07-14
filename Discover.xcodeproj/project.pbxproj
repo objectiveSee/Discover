@@ -30,7 +30,6 @@
 		300290A215944A62004774E4 /* DRPickLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A015944A62004774E4 /* DRPickLocationViewController.m */; };
 		300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A115944A62004774E4 /* DRPickLocationViewController.xib */; };
 		300290A715946624004774E4 /* DRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A515946623004774E4 /* DRItemViewController.m */; };
-		300290A815946624004774E4 /* DRItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A615946623004774E4 /* DRItemViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,7 +65,6 @@
 		300290A115944A62004774E4 /* DRPickLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRPickLocationViewController.xib; sourceTree = "<group>"; };
 		300290A415946623004774E4 /* DRItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemViewController.h; sourceTree = "<group>"; };
 		300290A515946623004774E4 /* DRItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemViewController.m; sourceTree = "<group>"; };
-		300290A615946623004774E4 /* DRItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRItemViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -150,7 +148,6 @@
 				3002907215942C97004774E4 /* DRItemListViewController.m */,
 				300290A415946623004774E4 /* DRItemViewController.h */,
 				300290A515946623004774E4 /* DRItemViewController.m */,
-				300290A615946623004774E4 /* DRItemViewController.xib */,
 				30029098159444C9004774E4 /* DRItemCreateViewController.h */,
 				30029099159444C9004774E4 /* DRItemCreateViewController.m */,
 				3002909A159444C9004774E4 /* DRItemCreateViewController.xib */,
@@ -221,7 +218,6 @@
 				3002908D15943A2D004774E4 /* DRSettingsViewController.xib in Resources */,
 				3002909C159444C9004774E4 /* DRItemCreateViewController.xib in Resources */,
 				300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */,
-				300290A815946624004774E4 /* DRItemViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

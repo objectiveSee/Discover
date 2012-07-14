@@ -117,8 +117,7 @@
         query.cachePolicy = kPFCachePolicyCacheThenNetwork;
     }
     
-    // customize the query to include messages
-    [query includeKey:@"messages"];
+//    [query includeKey:@"messages"];
     
     // @todo customize the query to sort by geo location
 //    [query whereKey:@"location" nearGeoPoint:userGeoPoint];

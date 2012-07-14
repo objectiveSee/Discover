@@ -111,42 +111,25 @@
     UIActivityIndicatorView *indicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
     self.navigationItem.titleView = indicator;
     [indicator startAnimating];
-    
+
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:self.mapPin.coordinate.latitude longitude:self.mapPin.coordinate.longitude];
     
     PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-    [newItem setObject:[PFUser currentUser] forKey:@"owner"];
+    [newItem setObject:[PFUser currentUser] forKey:@"creator"];
     [newItem setObject:geoPoint forKey:@"location"];
     [newItem setObject:title forKey:@"title"];
-
     
-    NSDictionary *convoItem = [NSDictionary dictionaryWithObjectsAndKeys:[[PFUser currentUser] objectId], @"owner", description, @"message", nil];
-    NSArray *convoArray = [NSArray arrayWithObject:convoItem];
-
-    PFObject *itemConversation = [PFObject objectWithClassName:@"Messages"];
-    [itemConversation setObject:convoArray forKey:@"conversation"];
-
-    [newItem setObject:itemConversation forKey:@"messages"];
-
-    [newItem saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {         
-         BOOL wasError = ( error != nil );
-         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:wasError ? @"Error" : @"Item Created!"
-                                                         message:[NSString stringWithFormat:@"Your item [%@] %@", title, wasError ? @"could not be created." : @"was created"]
-                                                                  delegate:nil
-                                               cancelButtonTitle:@"Sweeet"
-                                               otherButtonTitles:nil];
-         [alert show];
-         [alert release];
-
-         [indicator removeFromSuperview];
-         
-         if ( wasError == YES )
-         {
-             self.navigationItem.rightBarButtonItem.enabled = YES;
-         }
-         
+    PFObject *firstMessage = [PFObject objectWithClassName:@"Message"];
+    [firstMessage setObject:[PFUser currentUser] forKey:@"creator"];
+    [firstMessage setObject:geoPoint forKey:@"location"];
+    [firstMessage setObject:description forKey:@"text"];
+    [firstMessage setObject:newItem forKey:@"parent"];
+    
+    [firstMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         self.navigationItem.titleView = nil;
      }];
+    
     self.navigationItem.rightBarButtonItem.enabled = NO;
 }
 
