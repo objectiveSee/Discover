@@ -11,6 +11,7 @@
 #import "DRItemListViewController.h"
 #import "DRSettingsViewController.h"
 #import "DRItemCreateViewController.h"
+#import "DRSignUpViewController.h"
 
 @interface DRAppDelegate ()
 - (void)_setApplicationAppearence;
@@ -39,33 +40,15 @@
                   clientKey:@"qIRJ9aHOHv8gW0ZdcZV3rukkbV1oaMvoU3HsfcaO"];
     [PFFacebookUtils initializeWithApplicationId:@"a8993b27d7723ca60f69da100d766207"];
     
-    [PFUser enableAutomaticUser];
-    [[PFUser currentUser] incrementKey:@"RunCount"];
-    [[PFUser currentUser] saveInBackground];
-    
+//    [PFUser enableAutomaticUser];    
     [self _setApplicationAppearence];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
+    
+    [self _showSignUpOrMainApp];
+    
+    NSParameterAssert(self.window.rootViewController);
 
-    // Override point for customization after application launch.
-    // Tab 1
-    UIViewController *viewController1 = [[[DRItemListViewController alloc] init] autorelease];
-    UINavigationController *navigationController1 = [[[UINavigationController alloc] initWithRootViewController:viewController1] autorelease];
-    
-    // Tab 2
-    UIViewController *viewController2 = [[[DRItemCreateViewController alloc] init] autorelease];
-    UINavigationController *navigationController2 = [[[UINavigationController alloc] initWithRootViewController:viewController2] autorelease];
-    
-    // Tab 3
-    UIViewController *viewController3 = [[[DRSettingsViewController alloc] init] autorelease];
-    UINavigationController *navigationController3 = [[[UINavigationController alloc] initWithRootViewController:viewController3] autorelease];
-    
-    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
-    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navigationController1, navigationController2,navigationController3,nil];
-    
-    self.tabBarController.selectedIndex = 0;
-    
-    self.window.rootViewController = self.tabBarController;
     [self.window makeKeyAndVisible];
 
     return YES;
@@ -141,10 +124,68 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 */
 
 #pragma mark -
+#pragma mark Public
+
+- (void)showMainApplication
+{
+    // Tab 1
+    UIViewController *viewController1 = [[[DRItemListViewController alloc] init] autorelease];
+    UINavigationController *navigationController1 = [[[UINavigationController alloc] initWithRootViewController:viewController1] autorelease];
+    
+    // Tab 2
+    UIViewController *viewController2 = [[[DRItemCreateViewController alloc] init] autorelease];
+    UINavigationController *navigationController2 = [[[UINavigationController alloc] initWithRootViewController:viewController2] autorelease];
+    
+    // Tab 3
+    UIViewController *viewController3 = [[[DRSettingsViewController alloc] init] autorelease];
+    UINavigationController *navigationController3 = [[[UINavigationController alloc] initWithRootViewController:viewController3] autorelease];
+    
+    self.tabBarController = [[[UITabBarController alloc] init] autorelease];
+    self.tabBarController.viewControllers = [NSArray arrayWithObjects:navigationController1, navigationController2,navigationController3,nil];
+    
+    self.window.rootViewController = self.tabBarController;
+}
+
+- (void)showSignUp
+{
+    DRSignUpViewController *signUpController = [[DRSignUpViewController alloc] init];
+    signUpController.delegate = self;
+    self.window.rootViewController = signUpController;
+    [signUpController release];
+}
+
+#pragma mark -
+#pragma mark PFSignUpViewControllerDelegate
+
+- (void)signUpViewController:(PFSignUpViewController *)signUpController didSignUpUser:(PFUser *)user {
+    [self _showSignUpOrMainApp];
+}
+
+- (void)signUpViewControllerDidCancelSignUp:(PFSignUpViewController *)signUpController {
+    [self _showSignUpOrMainApp];
+}
+
+#pragma mark -
 #pragma mark Private
 
-static const CGFloat kDRMinVersionSupportsUIAppearence = 5.0f;
+- (void)_showSignUpOrMainApp
+{
+    PFUser *currentUser = [PFUser currentUser];
+    if (([PFAnonymousUtils isLinkedWithUser:currentUser]) || ( currentUser == nil )) {
+        // user must sign in
+        [self showSignUp];
+    }
+    else
+    {
+        // user is signed in
+        [self showMainApplication];
+        [[PFUser currentUser] incrementKey:@"RunCount"];
+        [[PFUser currentUser] saveInBackground];
+    }
+    
+}
 
+static const CGFloat kDRMinVersionSupportsUIAppearence = 5.0f;
 - (void)_setApplicationAppearence
 {
     // OS-specific properties

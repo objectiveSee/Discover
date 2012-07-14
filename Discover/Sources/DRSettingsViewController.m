@@ -6,6 +6,7 @@
 //  Copyright (c) 2012 CouchSurfing International. All rights reserved.
 //
 
+#import "DRAppDelegate.h"
 #import "DRSettingsViewController.h"
 
 @interface DRSettingsViewController ()
@@ -114,11 +115,19 @@
 - (IBAction)logoutButtonWasPressed:(id)sender
 {
     PFUser *currentUser = [PFUser currentUser];
-    if ( [PFAnonymousUtils isLinkedWithUser:currentUser] == NO )    // make sure user is actually logged in
+    if ( [PFAnonymousUtils isLinkedWithUser:currentUser] == NO )    
     {
+        // make sure user is actually logged in
         [PFUser logOut];
         [self _updateUserInfoInView];
     }
+    else
+    {
+        NSLog(@"Cannot log out user. user is already logged out");
+    }
+
+    DRAppDelegate *appDelegate = (DRAppDelegate *)[[UIApplication sharedApplication] delegate];
+    [appDelegate showSignUp];
 }
 
 #pragma mark -

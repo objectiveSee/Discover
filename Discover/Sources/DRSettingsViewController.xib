@@ -38,7 +38,7 @@
 				<array class="NSMutableArray" key="NSSubviews">
 					<object class="IBUIButton" id="791678212">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{56, 166}, {209, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -74,7 +74,7 @@
 					</object>
 					<object class="IBUIButton" id="385050984">
 						<reference key="NSNextResponder" ref="191373211"/>
-						<int key="NSvFlags">292</int>
+						<int key="NSvFlags">-2147483356</int>
 						<string key="NSFrame">{{56, 211}, {209, 37}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
@@ -124,6 +124,7 @@
 						<string key="NSFrame">{{27, 80}, {267, 21}}</string>
 						<reference key="NSSuperview" ref="191373211"/>
 						<reference key="NSWindow"/>
+						<reference key="NSNextKeyView" ref="791678212"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIClipsSubviews">YES</bool>
@@ -153,7 +154,7 @@
 				<string key="NSFrame">{{0, 20}, {320, 460}}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="791678212"/>
+				<reference key="NSNextKeyView" ref="556866571"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
