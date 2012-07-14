@@ -1,0 +1,362 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3002904015942BD4004774E4 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002903F15942BD4004774E4 /* UIKit.framework */; };
+		3002904215942BD4004774E4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002904115942BD4004774E4 /* Foundation.framework */; };
+		3002904415942BD4004774E4 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002904315942BD4004774E4 /* CoreGraphics.framework */; };
+		3002904A15942BD4004774E4 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3002904815942BD4004774E4 /* InfoPlist.strings */; };
+		3002904C15942BD4004774E4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002904B15942BD4004774E4 /* main.m */; };
+		3002907315942C97004774E4 /* DRAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002907015942C97004774E4 /* DRAppDelegate.m */; };
+		3002907415942C97004774E4 /* DRItemListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002907215942C97004774E4 /* DRItemListViewController.m */; };
+		3002907615942CAF004774E4 /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002907515942CAF004774E4 /* Parse.framework */; };
+		3002907C15942DFC004774E4 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002907B15942DFC004774E4 /* AudioToolbox.framework */; };
+		3002907E15942E02004774E4 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002907D15942E02004774E4 /* CFNetwork.framework */; };
+		3002908015942E08004774E4 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002907F15942E07004774E4 /* SystemConfiguration.framework */; };
+		3002908215942E0D004774E4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002908115942E0D004774E4 /* MobileCoreServices.framework */; };
+		3002908415942E1C004774E4 /* libz.1.1.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002908315942E1C004774E4 /* libz.1.1.3.dylib */; };
+		3002908615942E22004774E4 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002908515942E22004774E4 /* Security.framework */; };
+		3002908815942E2B004774E4 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002908715942E2B004774E4 /* QuartzCore.framework */; };
+		3002908C15943A2D004774E4 /* DRSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3002908A15943A2D004774E4 /* DRSettingsViewController.m */; };
+		3002908D15943A2D004774E4 /* DRSettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3002908B15943A2D004774E4 /* DRSettingsViewController.xib */; };
+		3002909B159444C9004774E4 /* DRItemCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30029099159444C9004774E4 /* DRItemCreateViewController.m */; };
+		3002909C159444C9004774E4 /* DRItemCreateViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3002909A159444C9004774E4 /* DRItemCreateViewController.xib */; };
+		3002909E15944520004774E4 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3002909D15944520004774E4 /* MapKit.framework */; };
+		300290A215944A62004774E4 /* DRPickLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A015944A62004774E4 /* DRPickLocationViewController.m */; };
+		300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A115944A62004774E4 /* DRPickLocationViewController.xib */; };
+		300290A715946624004774E4 /* DRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A515946623004774E4 /* DRItemViewController.m */; };
+		300290A815946624004774E4 /* DRItemViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A615946623004774E4 /* DRItemViewController.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		3002903B15942BD4004774E4 /* Discover.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Discover.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3002903F15942BD4004774E4 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		3002904115942BD4004774E4 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		3002904315942BD4004774E4 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		3002904715942BD4004774E4 /* Discover-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Discover-Info.plist"; sourceTree = "<group>"; };
+		3002904915942BD4004774E4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		3002904B15942BD4004774E4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		3002904D15942BD4004774E4 /* Discover-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Discover-Prefix.pch"; sourceTree = "<group>"; };
+		3002906F15942C97004774E4 /* DRAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRAppDelegate.h; sourceTree = "<group>"; };
+		3002907015942C97004774E4 /* DRAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRAppDelegate.m; sourceTree = "<group>"; };
+		3002907115942C97004774E4 /* DRItemListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemListViewController.h; sourceTree = "<group>"; };
+		3002907215942C97004774E4 /* DRItemListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemListViewController.m; sourceTree = "<group>"; };
+		3002907515942CAF004774E4 /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Discover/Parse.framework; sourceTree = "<group>"; };
+		3002907B15942DFC004774E4 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		3002907D15942E02004774E4 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		3002907F15942E07004774E4 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		3002908115942E0D004774E4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		3002908315942E1C004774E4 /* libz.1.1.3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.1.3.dylib; path = usr/lib/libz.1.1.3.dylib; sourceTree = SDKROOT; };
+		3002908515942E22004774E4 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		3002908715942E2B004774E4 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		3002908915943A2D004774E4 /* DRSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRSettingsViewController.h; sourceTree = "<group>"; };
+		3002908A15943A2D004774E4 /* DRSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRSettingsViewController.m; sourceTree = "<group>"; };
+		3002908B15943A2D004774E4 /* DRSettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRSettingsViewController.xib; sourceTree = "<group>"; };
+		30029098159444C9004774E4 /* DRItemCreateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemCreateViewController.h; sourceTree = "<group>"; };
+		30029099159444C9004774E4 /* DRItemCreateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemCreateViewController.m; sourceTree = "<group>"; };
+		3002909A159444C9004774E4 /* DRItemCreateViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRItemCreateViewController.xib; sourceTree = "<group>"; };
+		3002909D15944520004774E4 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3002909F15944A61004774E4 /* DRPickLocationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRPickLocationViewController.h; sourceTree = "<group>"; };
+		300290A015944A62004774E4 /* DRPickLocationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRPickLocationViewController.m; sourceTree = "<group>"; };
+		300290A115944A62004774E4 /* DRPickLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRPickLocationViewController.xib; sourceTree = "<group>"; };
+		300290A415946623004774E4 /* DRItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemViewController.h; sourceTree = "<group>"; };
+		300290A515946623004774E4 /* DRItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemViewController.m; sourceTree = "<group>"; };
+		300290A615946623004774E4 /* DRItemViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRItemViewController.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3002903815942BD4004774E4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3002909E15944520004774E4 /* MapKit.framework in Frameworks */,
+				3002908815942E2B004774E4 /* QuartzCore.framework in Frameworks */,
+				3002908615942E22004774E4 /* Security.framework in Frameworks */,
+				3002908415942E1C004774E4 /* libz.1.1.3.dylib in Frameworks */,
+				3002904415942BD4004774E4 /* CoreGraphics.framework in Frameworks */,
+				3002908215942E0D004774E4 /* MobileCoreServices.framework in Frameworks */,
+				3002908015942E08004774E4 /* SystemConfiguration.framework in Frameworks */,
+				3002907E15942E02004774E4 /* CFNetwork.framework in Frameworks */,
+				3002907C15942DFC004774E4 /* AudioToolbox.framework in Frameworks */,
+				3002904015942BD4004774E4 /* UIKit.framework in Frameworks */,
+				3002904215942BD4004774E4 /* Foundation.framework in Frameworks */,
+				3002907615942CAF004774E4 /* Parse.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3002903015942BD4004774E4 = {
+			isa = PBXGroup;
+			children = (
+				3002906E15942C97004774E4 /* Sources */,
+				3002904615942BD4004774E4 /* Supporting Files */,
+				3002903E15942BD4004774E4 /* Frameworks */,
+				3002903C15942BD4004774E4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3002903C15942BD4004774E4 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3002903B15942BD4004774E4 /* Discover.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3002903E15942BD4004774E4 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3002909D15944520004774E4 /* MapKit.framework */,
+				3002908715942E2B004774E4 /* QuartzCore.framework */,
+				3002908515942E22004774E4 /* Security.framework */,
+				3002908315942E1C004774E4 /* libz.1.1.3.dylib */,
+				3002908115942E0D004774E4 /* MobileCoreServices.framework */,
+				3002907F15942E07004774E4 /* SystemConfiguration.framework */,
+				3002907D15942E02004774E4 /* CFNetwork.framework */,
+				3002907B15942DFC004774E4 /* AudioToolbox.framework */,
+				3002907515942CAF004774E4 /* Parse.framework */,
+				3002903F15942BD4004774E4 /* UIKit.framework */,
+				3002904115942BD4004774E4 /* Foundation.framework */,
+				3002904315942BD4004774E4 /* CoreGraphics.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		3002904615942BD4004774E4 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3002904715942BD4004774E4 /* Discover-Info.plist */,
+				3002904815942BD4004774E4 /* InfoPlist.strings */,
+				3002904B15942BD4004774E4 /* main.m */,
+				3002904D15942BD4004774E4 /* Discover-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			path = Discover;
+			sourceTree = "<group>";
+		};
+		3002906E15942C97004774E4 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				3002906F15942C97004774E4 /* DRAppDelegate.h */,
+				3002907015942C97004774E4 /* DRAppDelegate.m */,
+				3002907115942C97004774E4 /* DRItemListViewController.h */,
+				3002907215942C97004774E4 /* DRItemListViewController.m */,
+				300290A415946623004774E4 /* DRItemViewController.h */,
+				300290A515946623004774E4 /* DRItemViewController.m */,
+				300290A615946623004774E4 /* DRItemViewController.xib */,
+				30029098159444C9004774E4 /* DRItemCreateViewController.h */,
+				30029099159444C9004774E4 /* DRItemCreateViewController.m */,
+				3002909A159444C9004774E4 /* DRItemCreateViewController.xib */,
+				3002909F15944A61004774E4 /* DRPickLocationViewController.h */,
+				300290A015944A62004774E4 /* DRPickLocationViewController.m */,
+				300290A115944A62004774E4 /* DRPickLocationViewController.xib */,
+				3002908915943A2D004774E4 /* DRSettingsViewController.h */,
+				3002908A15943A2D004774E4 /* DRSettingsViewController.m */,
+				3002908B15943A2D004774E4 /* DRSettingsViewController.xib */,
+			);
+			name = Sources;
+			path = Discover/Sources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3002903A15942BD4004774E4 /* Discover */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3002906715942BD4004774E4 /* Build configuration list for PBXNativeTarget "Discover" */;
+			buildPhases = (
+				3002903715942BD4004774E4 /* Sources */,
+				3002903815942BD4004774E4 /* Frameworks */,
+				3002903915942BD4004774E4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Discover;
+			productName = Discover;
+			productReference = 3002903B15942BD4004774E4 /* Discover.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3002903215942BD4004774E4 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = DR;
+				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = "CouchSurfing International";
+			};
+			buildConfigurationList = 3002903515942BD4004774E4 /* Build configuration list for PBXProject "Discover" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 3002903015942BD4004774E4;
+			productRefGroup = 3002903C15942BD4004774E4 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3002903A15942BD4004774E4 /* Discover */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3002903915942BD4004774E4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3002904A15942BD4004774E4 /* InfoPlist.strings in Resources */,
+				3002908D15943A2D004774E4 /* DRSettingsViewController.xib in Resources */,
+				3002909C159444C9004774E4 /* DRItemCreateViewController.xib in Resources */,
+				300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */,
+				300290A815946624004774E4 /* DRItemViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3002903715942BD4004774E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3002904C15942BD4004774E4 /* main.m in Sources */,
+				3002907315942C97004774E4 /* DRAppDelegate.m in Sources */,
+				3002907415942C97004774E4 /* DRItemListViewController.m in Sources */,
+				3002908C15943A2D004774E4 /* DRSettingsViewController.m in Sources */,
+				3002909B159444C9004774E4 /* DRItemCreateViewController.m in Sources */,
+				300290A215944A62004774E4 /* DRPickLocationViewController.m in Sources */,
+				300290A715946624004774E4 /* DRItemViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		3002904815942BD4004774E4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3002904915942BD4004774E4 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		3002906515942BD4004774E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		3002906615942BD4004774E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3002906815942BD4004774E4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Daniel Ricciotti (2WQHV5P77D)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Daniel Ricciotti (VJQF47MN6D)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Discover\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Discover/Discover-Prefix.pch";
+				INFOPLIST_FILE = "Discover/Discover-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "9234D79D-A41E-441C-A5F9-987F0AD02356";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		3002906915942BD4004774E4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/Discover\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Discover/Discover-Prefix.pch";
+				INFOPLIST_FILE = "Discover/Discover-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3002903515942BD4004774E4 /* Build configuration list for PBXProject "Discover" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3002906515942BD4004774E4 /* Debug */,
+				3002906615942BD4004774E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3002906715942BD4004774E4 /* Build configuration list for PBXNativeTarget "Discover" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3002906815942BD4004774E4 /* Debug */,
+				3002906915942BD4004774E4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3002903215942BD4004774E4 /* Project object */;
+}
