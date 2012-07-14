@@ -83,7 +83,7 @@
     
     [query includeKey:@"creator"];
     
-tem];
+    [query whereKey:@"parent" equalTo:self.item];
     //    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
     [query orderByDescending:@"updatedAt"];
     
