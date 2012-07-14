@@ -119,7 +119,6 @@
         cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    
     PFObject *messages = [object objectForKey:@"messages"];
     
     NSArray *conversation = [messages objectForKey:@"conversation"];

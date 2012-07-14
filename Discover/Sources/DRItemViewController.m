@@ -7,6 +7,7 @@
 //
 
 #import "DRItemViewController.h"
+#import "DRItemTableViewCell.h"
 
 @interface DRItemViewController ()
 //- (void)_setStateIsLoading:(BOOL)isLoading;
@@ -58,6 +59,20 @@
 //    [super viewDidUnload];
 //}
 
+#pragma mark -
+#pragma mark UITableViewDelegate
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (( self.objects != nil ) && ( indexPath.row < [self.objects count] ))
+    {
+        id object = [self objectAtIndex:indexPath];
+        NSParameterAssert(object);
+        return [DRItemTableViewCell preferredHeightForObject:object width:tableView.frame.size.width];
+    }
+    return 44.0f;
+}
+
 #pragma mark - 
 #pragma mark Parse
 
@@ -101,17 +116,17 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
     static NSString *identifier = @"Cell";
-    PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    DRItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[DRItemTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    cell.textLabel.text = [object objectForKey:@"text"];
+    cell.detailTextLabel.text = [object objectForKey:@"text"];
     
     PFUser *creator = [object objectForKey:@"creator"];
     NSParameterAssert(creator);
-    cell.detailTextLabel.text = [creator username];
-    
+    cell.textLabel.text = [NSString stringWithFormat:@"From %@",[creator username]];
+        
     //    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
     //    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];
     //    cell.imageView.file = thumbnail;

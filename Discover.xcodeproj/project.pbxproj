@@ -31,6 +31,7 @@
 		300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A115944A62004774E4 /* DRPickLocationViewController.xib */; };
 		300290A715946624004774E4 /* DRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A515946623004774E4 /* DRItemViewController.m */; };
 		30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4808E15B132100001B981 /* DRSignUpViewController.m */; };
+		30E4809515B13F2F0001B981 /* DRItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -68,6 +69,8 @@
 		300290A515946623004774E4 /* DRItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemViewController.m; sourceTree = "<group>"; };
 		30E4808D15B132100001B981 /* DRSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRSignUpViewController.h; sourceTree = "<group>"; };
 		30E4808E15B132100001B981 /* DRSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRSignUpViewController.m; sourceTree = "<group>"; };
+		30E4809315B13F2F0001B981 /* DRItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemTableViewCell.h; sourceTree = "<group>"; };
+		30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -153,6 +156,8 @@
 				3002907215942C97004774E4 /* DRItemListViewController.m */,
 				300290A415946623004774E4 /* DRItemViewController.h */,
 				300290A515946623004774E4 /* DRItemViewController.m */,
+				30E4809315B13F2F0001B981 /* DRItemTableViewCell.h */,
+				30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */,
 				30029098159444C9004774E4 /* DRItemCreateViewController.h */,
 				30029099159444C9004774E4 /* DRItemCreateViewController.m */,
 				3002909A159444C9004774E4 /* DRItemCreateViewController.xib */,
@@ -241,6 +246,7 @@
 				300290A215944A62004774E4 /* DRPickLocationViewController.m in Sources */,
 				300290A715946624004774E4 /* DRItemViewController.m in Sources */,
 				30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */,
+				30E4809515B13F2F0001B981 /* DRItemTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
