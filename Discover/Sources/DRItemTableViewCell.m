@@ -8,25 +8,43 @@
 
 #import "DRItemTableViewCell.h"
 
+@interface DRItemTableViewCell ()
+@property (nonatomic, retain, readwrite) UILabel *dateLabel;
+@end
+
+///////////////////////////////////////////////////////////////
+
 @implementation DRItemTableViewCell
+@synthesize dateLabel = _dateLabel;
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         
-//        self.textLabel.backgroundColor = [UIColor clearColor];
+        self.textLabel.backgroundColor = [UIColor clearColor];
         
+        self.detailTextLabel.backgroundColor = [UIColor clearColor];
         self.detailTextLabel.numberOfLines = 0;
         self.detailTextLabel.font = [UIFont systemFontOfSize:12];
         
         self.selectionStyle = UITableViewCellSelectionStyleNone;
-//        self.detailTextLabel.backgroundColor = [UIColor clearColor];
         
-//        self.contentView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"light-bk"]];
+        self.dateLabel = [[[UILabel alloc] initWithFrame:CGRectZero] autorelease];
+        self.dateLabel.textAlignment = UITextAlignmentRight;
+        self.dateLabel.backgroundColor = [UIColor clearColor];
+        [self.contentView addSubview:self.dateLabel];
     }
     return self;
 }
+
+- (void)dealloc
+{
+    self.dateLabel = nil;
+    
+    [super dealloc];
+}
+
 
 #pragma mark -
 #pragma mark UIView
@@ -41,6 +59,10 @@
     [self.textLabel setFrame:CGRectMake(0.0f, 0.0f, width, 20)];
     [self.detailTextLabel sizeToFit];
     self.detailTextLabel.frame = CGRectMake(0, 20, self.detailTextLabel.frame.size.width, self.detailTextLabel.frame.size.height);
+    
+    CGSize size = [self.dateLabel sizeThatFits:CGSizeMake(1000, 1000)]; // using huge numbers
+    self.dateLabel.frame = CGRectMake(width-size.width, 0, size.width, size.height);
+    NSLog(@"Frame = %@", NSStringFromCGRect(self.dateLabel.frame));
 }
 
 #pragma mark -

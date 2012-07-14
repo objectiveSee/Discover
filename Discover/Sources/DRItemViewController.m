@@ -48,7 +48,7 @@
     self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
 
     
-    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Post"
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Talk"
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
                                                                    action:@selector(_postButtonWasPressed:)];
@@ -112,7 +112,7 @@
     
     [query whereKey:@"parent" equalTo:self.item];
     //    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
-    [query orderByDescending:@"updatedAt"];
+    [query orderByAscending:@"updatedAt"];
     
     return query;
 }
@@ -129,6 +129,8 @@
     PFUser *creator = [object objectForKey:@"creator"];
     NSParameterAssert(creator);
     cell.textLabel.text = [NSString stringWithFormat:@"From %@",[creator username]];
+    
+    cell.dateLabel.text = @"1d";
         
     //    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
     //    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];

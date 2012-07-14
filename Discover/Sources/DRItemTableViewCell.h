@@ -8,8 +8,10 @@
 
 @interface DRItemTableViewCell : PFTableViewCell
 {
-    UIView *_locationView;
+    UILabel *_dateLabel;
 }
+
+@property (nonatomic, retain, readonly) UILabel *dateLabel;
 
 + (CGFloat)preferredHeightForObject:(PFObject *)object width:(CGFloat)width;
 
