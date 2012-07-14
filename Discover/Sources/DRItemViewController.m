@@ -10,6 +10,7 @@
 
 @interface DRItemViewController ()
 //- (void)_setStateIsLoading:(BOOL)isLoading;
+- (void)_postButtonWasPressed:(id)sender;
 @end
 
 @implementation DRItemViewController
@@ -39,10 +40,18 @@
 #pragma mark -
 #pragma mark UIViewController
 
-//- (void)viewDidLoad
-//{
-//    [super viewDidLoad];
-//}
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Post"
+                                                                    style:UIBarButtonItemStylePlain
+                                                                   target:self
+                                                                   action:@selector(_postButtonWasPressed:)];
+    [self.navigationItem setRightBarButtonItem:rightButton];
+    [rightButton release];
+}
+
 //
 //- (void)viewDidUnload
 //{
@@ -87,8 +96,6 @@
     //    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
     [query orderByDescending:@"updatedAt"];
     
-    NSLog(@"Query = %@. Parent = %@", query, self.item);
-    
     return query;
 }
 
@@ -100,7 +107,10 @@
     }
     
     cell.textLabel.text = [object objectForKey:@"text"];
-//    cell.detailTextLabel.text = [message0 objectForKey:@"message"];
+    
+    PFUser *creator = [object objectForKey:@"creator"];
+    NSParameterAssert(creator);
+    cell.detailTextLabel.text = [creator username];
     
     //    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
     //    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];
@@ -108,25 +118,29 @@
     return cell;
 }
 
+#pragma mark -
+#pragma mark DRItemCreateViewControllerDelegate
+
+- (void)DRItemCreateViewController:(DRItemCreateViewController *)controller didCreateItem:(id)item
+{
+    NSLog(@"%s called", __FUNCTION__);
+    [self.navigationController popViewControllerAnimated:YES];
+    
+    [self loadObjects]; // refreshes page?
+}
 
 #pragma mark -
 #pragma mark Private
-/**
-- (void)_setStateIsLoading:(BOOL)isLoading
+
+- (void)_postButtonWasPressed:(id)sender
 {
-    self.tableView.hidden = isLoading;
-    
-    if ( isLoading == YES )
-    {
-        UIActivityIndicatorView *indicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
-        self.navigationItem.titleView = indicator;
-        [indicator startAnimating];
-    }
-    else 
-    {
-        self.navigationItem.titleView = nil;
-    }
+    NSParameterAssert(self.item);
+
+    DRItemCreateViewController *itemCreateController = [[DRItemCreateViewController alloc] init];
+    itemCreateController.delegate = self;
+    itemCreateController.parentObject = self.item;
+    [self.navigationController pushViewController:itemCreateController animated:YES];
+    [itemCreateController release];    
 }
- */
 
 @end

@@ -17,6 +17,8 @@
 @implementation DRItemCreateViewController
 @synthesize descriptionTextView = _descriptionTextView;
 @synthesize titleTextField = _titleTextField;
+@synthesize delegate = _delegate;
+@synthesize parentObject = _parentObject;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -25,13 +27,14 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Create Something";
+        self.title = @"Post";
     }
     return self;
 }
 
 - (void)dealloc
 {
+    self.delegate = nil;
     [super dealloc];
 }
 
@@ -101,12 +104,13 @@
 
 - (void)_rightBarButtonItemWasPressed:(id)sender
 {
+    // validate
     if (( self.titleTextField.text == nil ) || ( self.titleTextField.text.length < 1 ) || ( self.descriptionTextView.text == nil ) || ( self.descriptionTextView.text.length < 1 ))
     {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
                                                         message:@"You didn't type enough"
                                                        delegate:nil
-                                              cancelButtonTitle:@"My mistake. I am so sorry."
+                                              cancelButtonTitle:@"Ok"
                                               otherButtonTitles:nil];
         [alert show];
         [alert release];
@@ -115,6 +119,61 @@
     
     [(UIBarButtonItem *)sender setEnabled:NO];
     
+    if ( self.parentObject != nil )
+    {
+        NSLog(@"Creating message with parent");
+        PFObject *newMessage = [PFObject objectWithClassName:@"Message"];
+        [newMessage setObject:[PFUser currentUser] forKey:@"creator"];
+        [newMessage setObject:self.descriptionTextView.text forKey:@"text"];
+        [newMessage setObject:self.parentObject forKey:@"parent"];
+    
+        [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+         {
+             if ( succeeded == YES )
+             {
+                 NSLog(@"Message created!");
+                 if ( self.delegate )
+                 {
+                     [self.delegate DRItemCreateViewController:self didCreateItem:newMessage];
+                 }
+             }
+             else
+             {
+                 NSLog(@"Failed to send message");
+             }
+         }
+         ];
+    }
+    else
+    {
+        NSLog(@"Creating a new item (no parent)");
+        PFObject *newItem = [PFObject objectWithClassName:@"Item"];
+        [newItem setObject:[PFUser currentUser] forKey:@"creator"];
+        [newItem setObject:self.titleTextField.text forKey:@"title"];
+        
+        PFObject *firstMessage = [PFObject objectWithClassName:@"Message"];
+        [firstMessage setObject:[PFUser currentUser] forKey:@"creator"];
+//        [firstMessage setObject:geoPoint forKey:@"location"];
+        [firstMessage setObject:self.descriptionTextView.text forKey:@"text"];
+        [firstMessage setObject:newItem forKey:@"parent"];
+        
+        [firstMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+         {
+             if ( succeeded == YES )
+             {
+                 NSLog(@"New Item created!");
+             }
+             else
+             {
+                 NSLog(@"Failed to create item");
+             }
+         }
+         ];
+    }
+    
+    /**
+
+    
     DRPickLocationViewController *locationPicker = [[DRPickLocationViewController alloc] init];
     
     NSMutableDictionary *dict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:self.titleTextField.text, @"title", self.descriptionTextView.text, @"description", nil] autorelease];
@@ -122,6 +181,7 @@
     
     [self.navigationController pushViewController:locationPicker animated:YES];
     [locationPicker release];
+     */
 }
 
 @end

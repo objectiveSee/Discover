@@ -6,7 +6,9 @@
 //  Copyright (c) 2012 CouchSurfing International. All rights reserved.
 //
 
-@interface DRItemViewController : PFQueryTableViewController
+#import "DRItemCreateViewController.h"
+
+@interface DRItemViewController : PFQueryTableViewController <DRItemCreateViewControllerDelegate>
 {
     PFObject *_item;
 }

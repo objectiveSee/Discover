@@ -100,6 +100,7 @@
 
 - (void)_rightBarButtonItemWasPressed:(id)sender
 {
+    
     NSParameterAssert(self.itemDictionary);
     NSParameterAssert(self.mapPin);
     
