@@ -12,6 +12,8 @@
 @interface DRItemCreateViewController ()
 - (void)_rightBarButtonItemWasPressed:(id)sender;
 - (void)_showLeftCancelButton;
+- (void)_pushNewMessage:(NSString *)message channelID:(NSString *)channelID;
+- (void)_subscribeToChannel:(NSString *)channelID;
 
 @property (nonatomic, retain, readwrite) PFGeoPoint *location;
 
@@ -162,9 +164,11 @@
     if ( self.parentObject != nil )
     {
         NSLog(@"Creating message with parent");
+        NSString *objectID = [self.parentObject objectId];
+        NSString *messageText = self.descriptionTextView.text;
         PFObject *newMessage = [PFObject objectWithClassName:@"Message"];
         [newMessage setObject:[PFUser currentUser] forKey:@"creator"];
-        [newMessage setObject:self.descriptionTextView.text forKey:@"text"];
+        [newMessage setObject:messageText forKey:@"text"];
         [newMessage setObject:self.parentObject forKey:@"parent"];
         if ( self.location != nil )
         {
@@ -180,6 +184,8 @@
                  {
                      [self.delegate DRItemCreateViewController:self didCreateItem:newMessage];
                  }
+                 [self _pushNewMessage:messageText channelID:objectID];
+                 [self _subscribeToChannel:objectID];
              }
              else
              {
@@ -193,6 +199,7 @@
         NSParameterAssert(self.location);   // todo fix UI to prevent user from reaching here if location is nil
         
         NSLog(@"Creating a new item (no parent)");
+        NSString *messageText = self.descriptionTextView.text;
         PFObject *newItem = [PFObject objectWithClassName:@"Item"];
         [newItem setObject:[PFUser currentUser] forKey:@"creator"];
         [newItem setObject:self.titleTextField.text forKey:@"title"];
@@ -200,15 +207,19 @@
         
         PFObject *firstMessage = [PFObject objectWithClassName:@"Message"];
         [firstMessage setObject:[PFUser currentUser] forKey:@"creator"];
-        [firstMessage setObject:self.descriptionTextView.text forKey:@"text"];
+        [firstMessage setObject:messageText forKey:@"text"];
         [firstMessage setObject:newItem forKey:@"parent"];
         [firstMessage setObject:self.location forKey:@"location"];
-
+        
         [firstMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
          {
              if ( succeeded == YES )
              {
+                 NSString *objectID = [newItem objectId];
+                 NSParameterAssert(objectID);
                  NSLog(@"New Item created!");
+                 [self _pushNewMessage:messageText channelID:objectID];
+                 [self _subscribeToChannel:objectID];
              }
              else
              {
@@ -231,4 +242,29 @@
      */
 }
 
+- (void)_subscribeToChannel:(NSString *)channelID
+{
+    [PFPush subscribeToChannelInBackground:[NSString stringWithFormat:@"item-%@", channelID]];
+}
+
+- (void)_pushNewMessage:(NSString *)message channelID:(NSString *)channelID
+{
+    // Send a push notification
+    NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
+                          message, @"alert",
+//                          @"5", @"score_REDSOX",
+//                          @"0", @"score_YANKEES",
+//                          @"4th", @"inning",
+                          nil];
+    
+    NSParameterAssert(channelID);
+    NSString *channelName = [NSString stringWithFormat:@"item-%@", channelID];
+    
+    PFPush *push = [[PFPush alloc] init];
+    [push setChannels:[NSArray arrayWithObjects:channelName, nil]];
+    [push setPushToAndroid:false];
+    [push expireAfterTimeInterval:60*60*4];
+    [push setData:data];
+    [push sendPushInBackground];
+}
 @end

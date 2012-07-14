@@ -9,13 +9,19 @@
 #import "DRItemViewController.h"
 #import "DRItemTableViewCell.h"
 
+#import "UIView+Origami.h"
+#import "NSDate+Additions.h"
+
 @interface DRItemViewController ()
-//- (void)_setStateIsLoading:(BOOL)isLoading;
+
+@property ( nonatomic, retain, readwrite ) MKMapView *mapView;
+
 - (void)_postButtonWasPressed:(id)sender;
 @end
 
 @implementation DRItemViewController
 @synthesize item = _item;
+@synthesize mapView = _mapView;
 
 #pragma mark -
 #pragma mark Life Cycle
@@ -34,20 +40,32 @@
 
 - (void)dealloc
 {
+    self.mapView.delegate = nil;
+    self.mapView = nil;
     self.item = nil;
     [super dealloc];
 }
 
+/// todo unload map when memory warning & not current controller in window
+
 #pragma mark -
 #pragma mark UIViewController
+
+static const CGFloat kDRMapHeight = 250.0f;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    // tableview
     self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
-
     
+    // tableview header
+//    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, kDRMapHeight)] autorelease];
+//    self.mapView.delegate = self;
+//    self.tableView.tableHeaderView = self.mapView;
+
+    // right button
     UIBarButtonItem *rightButton = [[UIBarButtonItem alloc] initWithTitle:@"Talk"
                                                                     style:UIBarButtonItemStylePlain
                                                                    target:self
@@ -55,12 +73,6 @@
     [self.navigationItem setRightBarButtonItem:rightButton];
     [rightButton release];
 }
-
-//
-//- (void)viewDidUnload
-//{
-//    [super viewDidUnload];
-//}
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
@@ -147,7 +159,8 @@
     NSParameterAssert(creator);
     cell.textLabel.text = [NSString stringWithFormat:@"From %@",[creator username]];
     
-    cell.dateLabel.text = @"1d";
+    NSParameterAssert(object.createdAt);
+    cell.dateLabel.text = [object.createdAt recentDateAndTimeString];
         
     //    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
     //    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];
@@ -177,7 +190,7 @@
     itemCreateController.delegate = self;
     itemCreateController.parentObject = self.item;
     [self.navigationController pushViewController:itemCreateController animated:YES];
-    [itemCreateController release];    
+    [itemCreateController release];  
 }
 
 @end

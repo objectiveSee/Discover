@@ -30,6 +30,8 @@
 		300290A215944A62004774E4 /* DRPickLocationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A015944A62004774E4 /* DRPickLocationViewController.m */; };
 		300290A315944A62004774E4 /* DRPickLocationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 300290A115944A62004774E4 /* DRPickLocationViewController.xib */; };
 		300290A715946624004774E4 /* DRItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 300290A515946623004774E4 /* DRItemViewController.m */; };
+		302E6F8A15B18F24001C439B /* NSDate+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 302E6F8915B18F24001C439B /* NSDate+Additions.m */; };
+		308ABA4D15B1707B00BB7739 /* UIView+Origami.m in Sources */ = {isa = PBXBuildFile; fileRef = 308ABA2415B1707B00BB7739 /* UIView+Origami.m */; };
 		30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4808E15B132100001B981 /* DRSignUpViewController.m */; };
 		30E4809515B13F2F0001B981 /* DRItemTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */; };
 		30E4809915B148CD0001B981 /* light-bk.png in Resources */ = {isa = PBXBuildFile; fileRef = 30E4809715B148CD0001B981 /* light-bk.png */; };
@@ -70,6 +72,10 @@
 		300290A115944A62004774E4 /* DRPickLocationViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DRPickLocationViewController.xib; sourceTree = "<group>"; };
 		300290A415946623004774E4 /* DRItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemViewController.h; sourceTree = "<group>"; };
 		300290A515946623004774E4 /* DRItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRItemViewController.m; sourceTree = "<group>"; };
+		302E6F8815B18F24001C439B /* NSDate+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Additions.h"; sourceTree = "<group>"; };
+		302E6F8915B18F24001C439B /* NSDate+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Additions.m"; sourceTree = "<group>"; };
+		308ABA2315B1707B00BB7739 /* UIView+Origami.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIView+Origami.h"; path = "XYOrigami/UIView+Origami.h"; sourceTree = "<group>"; };
+		308ABA2415B1707B00BB7739 /* UIView+Origami.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIView+Origami.m"; path = "XYOrigami/UIView+Origami.m"; sourceTree = "<group>"; };
 		30E4808D15B132100001B981 /* DRSignUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRSignUpViewController.h; sourceTree = "<group>"; };
 		30E4808E15B132100001B981 /* DRSignUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DRSignUpViewController.m; sourceTree = "<group>"; };
 		30E4809315B13F2F0001B981 /* DRItemTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DRItemTableViewCell.h; sourceTree = "<group>"; };
@@ -108,6 +114,7 @@
 			children = (
 				3002906E15942C97004774E4 /* Sources */,
 				30E4809615B148CC0001B981 /* Resources */,
+				308AB9EA15B1707B00BB7739 /* Vendors */,
 				3002904615942BD4004774E4 /* Supporting Files */,
 				3002903E15942BD4004774E4 /* Frameworks */,
 				3002903C15942BD4004774E4 /* Products */,
@@ -158,14 +165,34 @@
 			children = (
 				3002906F15942C97004774E4 /* DRAppDelegate.h */,
 				3002907015942C97004774E4 /* DRAppDelegate.m */,
+				302E6F8615B18EDA001C439B /* Controllers */,
+				302E6F8715B18EF8001C439B /* Cells */,
+				302E6F8415B18ECF001C439B /* Categories */,
+			);
+			name = Sources;
+			path = Discover/Sources;
+			sourceTree = "<group>";
+		};
+		302E6F8415B18ECF001C439B /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				30E4809B15B1490D0001B981 /* UIColor+Additions.h */,
+				30E4809C15B1490E0001B981 /* UIColor+Additions.m */,
+				302E6F8815B18F24001C439B /* NSDate+Additions.h */,
+				302E6F8915B18F24001C439B /* NSDate+Additions.m */,
+			);
+			name = Categories;
+			sourceTree = "<group>";
+		};
+		302E6F8615B18EDA001C439B /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
 				30E4808D15B132100001B981 /* DRSignUpViewController.h */,
 				30E4808E15B132100001B981 /* DRSignUpViewController.m */,
 				3002907115942C97004774E4 /* DRItemListViewController.h */,
 				3002907215942C97004774E4 /* DRItemListViewController.m */,
 				300290A415946623004774E4 /* DRItemViewController.h */,
 				300290A515946623004774E4 /* DRItemViewController.m */,
-				30E4809315B13F2F0001B981 /* DRItemTableViewCell.h */,
-				30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */,
 				30029098159444C9004774E4 /* DRItemCreateViewController.h */,
 				30029099159444C9004774E4 /* DRItemCreateViewController.m */,
 				3002909A159444C9004774E4 /* DRItemCreateViewController.xib */,
@@ -175,11 +202,35 @@
 				3002908915943A2D004774E4 /* DRSettingsViewController.h */,
 				3002908A15943A2D004774E4 /* DRSettingsViewController.m */,
 				3002908B15943A2D004774E4 /* DRSettingsViewController.xib */,
-				30E4809B15B1490D0001B981 /* UIColor+Additions.h */,
-				30E4809C15B1490E0001B981 /* UIColor+Additions.m */,
 			);
-			name = Sources;
-			path = Discover/Sources;
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		302E6F8715B18EF8001C439B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				30E4809315B13F2F0001B981 /* DRItemTableViewCell.h */,
+				30E4809415B13F2F0001B981 /* DRItemTableViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
+		308AB9EA15B1707B00BB7739 /* Vendors */ = {
+			isa = PBXGroup;
+			children = (
+				308AB9EB15B1707B00BB7739 /* XYOrigami */,
+			);
+			name = Vendors;
+			path = Discover/Vendors;
+			sourceTree = "<group>";
+		};
+		308AB9EB15B1707B00BB7739 /* XYOrigami */ = {
+			isa = PBXGroup;
+			children = (
+				308ABA2315B1707B00BB7739 /* UIView+Origami.h */,
+				308ABA2415B1707B00BB7739 /* UIView+Origami.m */,
+			);
+			path = XYOrigami;
 			sourceTree = "<group>";
 		};
 		30E4809615B148CC0001B981 /* Resources */ = {
@@ -270,6 +321,8 @@
 				30E4808F15B132100001B981 /* DRSignUpViewController.m in Sources */,
 				30E4809515B13F2F0001B981 /* DRItemTableViewCell.m in Sources */,
 				30E4809D15B1490E0001B981 /* UIColor+Additions.m in Sources */,
+				308ABA4D15B1707B00BB7739 /* UIView+Origami.m in Sources */,
+				302E6F8A15B18F24001C439B /* NSDate+Additions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
