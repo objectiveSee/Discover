@@ -19,7 +19,7 @@
 @synthesize mapView = _mapView;
 @synthesize longPressGestureRecognizer = _longPressGestureRecognizer;
 @synthesize mapPin = _mapPin;
-@synthesize itemDictionary = _itemDictionary;
+@synthesize delegate = _delegate;
 
 #pragma mark -
 #pragma mark Life cycle
@@ -34,13 +34,12 @@
     return self;
 }
 
-
 #pragma mark -
 #pragma mark UIViewController
 
 - (void)dealloc
 {
-    self.itemDictionary = nil;
+    self.delegate = nil;
     self.mapPin = nil;
     
     [super dealloc];
@@ -100,38 +99,14 @@
 
 - (void)_rightBarButtonItemWasPressed:(id)sender
 {
-    
-    NSParameterAssert(self.itemDictionary);
     NSParameterAssert(self.mapPin);
     
-    NSString *title = [self.itemDictionary objectForKey:@"title"];
-    NSString *description = [self.itemDictionary objectForKey:@"description"];
-    NSParameterAssert(title);
-    NSParameterAssert(description);
-    
-    UIActivityIndicatorView *indicator = [[[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite] autorelease];
-    self.navigationItem.titleView = indicator;
-    [indicator startAnimating];
-
     PFGeoPoint *geoPoint = [PFGeoPoint geoPointWithLatitude:self.mapPin.coordinate.latitude longitude:self.mapPin.coordinate.longitude];
     
-    PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-    [newItem setObject:[PFUser currentUser] forKey:@"creator"];
-    [newItem setObject:geoPoint forKey:@"location"];
-    [newItem setObject:title forKey:@"title"];
-    
-    PFObject *firstMessage = [PFObject objectWithClassName:@"Message"];
-    [firstMessage setObject:[PFUser currentUser] forKey:@"creator"];
-    [firstMessage setObject:geoPoint forKey:@"location"];
-    [firstMessage setObject:description forKey:@"text"];
-    [firstMessage setObject:newItem forKey:@"parent"];
-    
-    [firstMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-     {
-         self.navigationItem.titleView = nil;
-     }];
-    
-    self.navigationItem.rightBarButtonItem.enabled = NO;
+    if ( self.delegate != nil )
+    {
+        [self.delegate DRPickLocationViewController:self didPickLocation:geoPoint];
+    }
 }
 
 - (void)_longPressGestureObserved:(UILongPressGestureRecognizer *)gestureRecognizer
@@ -154,7 +129,7 @@
     
     if ( self.navigationItem.rightBarButtonItem == nil )
     {
-        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Create!" style:UIBarButtonItemStyleBordered target:self action:@selector(_rightBarButtonItemWasPressed:)] autorelease];
+        self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Pick!" style:UIBarButtonItemStyleBordered target:self action:@selector(_rightBarButtonItemWasPressed:)] autorelease];
     }
 }
 

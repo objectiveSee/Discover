@@ -12,13 +12,19 @@
 @interface DRItemCreateViewController ()
 - (void)_rightBarButtonItemWasPressed:(id)sender;
 - (void)_showLeftCancelButton;
+
+@property (nonatomic, retain, readwrite) PFGeoPoint *location;
+
 @end
 
 @implementation DRItemCreateViewController
+@synthesize location = _location;
 @synthesize descriptionTextView = _descriptionTextView;
 @synthesize titleTextField = _titleTextField;
 @synthesize delegate = _delegate;
 @synthesize parentObject = _parentObject;
+@synthesize itemToolbarView = _itemToolbarView;
+@synthesize addLocationButton = _addLocationButton;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -34,6 +40,7 @@
 
 - (void)dealloc
 {
+    self.location = nil;
     self.delegate = nil;
     [super dealloc];
 }
@@ -92,6 +99,29 @@
 }
 
 #pragma mark -
+#pragma mark DRPickLocationViewControllerDelegate
+
+- (void)DRPickLocationViewController:(DRPickLocationViewController *)controller didPickLocation:(id)location
+{
+    NSLog(@"%s called", __FUNCTION__);
+    NSAssert([location isKindOfClass:[PFGeoPoint class]] == YES, @"invalid class");
+    self.location = location;
+    
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark -
+#pragma mark Public
+
+- (IBAction)addLocationButtonWasPressed:(id)sender
+{
+    DRPickLocationViewController *picker = [[DRPickLocationViewController alloc] init];
+    picker.delegate = self;
+    [self.navigationController pushViewController:picker animated:YES];
+    [picker release];
+}
+
+#pragma mark -
 #pragma mark Private
 
 - (void)_showLeftCancelButton
@@ -136,6 +166,10 @@
         [newMessage setObject:[PFUser currentUser] forKey:@"creator"];
         [newMessage setObject:self.descriptionTextView.text forKey:@"text"];
         [newMessage setObject:self.parentObject forKey:@"parent"];
+        if ( self.location != nil )
+        {
+            [newMessage setObject:self.location forKey:@"location"];
+        }
     
         [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
          {
@@ -156,17 +190,20 @@
     }
     else
     {
+        NSParameterAssert(self.location);   // todo fix UI to prevent user from reaching here if location is nil
+        
         NSLog(@"Creating a new item (no parent)");
         PFObject *newItem = [PFObject objectWithClassName:@"Item"];
         [newItem setObject:[PFUser currentUser] forKey:@"creator"];
         [newItem setObject:self.titleTextField.text forKey:@"title"];
+        [newItem setObject:self.location forKey:@"location"];
         
         PFObject *firstMessage = [PFObject objectWithClassName:@"Message"];
         [firstMessage setObject:[PFUser currentUser] forKey:@"creator"];
-//        [firstMessage setObject:geoPoint forKey:@"location"];
         [firstMessage setObject:self.descriptionTextView.text forKey:@"text"];
         [firstMessage setObject:newItem forKey:@"parent"];
-        
+        [firstMessage setObject:self.location forKey:@"location"];
+
         [firstMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
          {
              if ( succeeded == YES )

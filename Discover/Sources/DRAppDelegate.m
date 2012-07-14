@@ -40,7 +40,6 @@
                   clientKey:@"qIRJ9aHOHv8gW0ZdcZV3rukkbV1oaMvoU3HsfcaO"];
     [PFFacebookUtils initializeWithApplicationId:@"a8993b27d7723ca60f69da100d766207"];
     
-//    [PFUser enableAutomaticUser];    
     [self _setApplicationAppearence];
     
     self.window = [[[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]] autorelease];
@@ -181,8 +180,7 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
         [self showMainApplication];
         [[PFUser currentUser] incrementKey:@"RunCount"];
         [[PFUser currentUser] saveInBackground];
-    }
-    
+    }    
 }
 
 static const CGFloat kDRMinVersionSupportsUIAppearence = 5.0f;

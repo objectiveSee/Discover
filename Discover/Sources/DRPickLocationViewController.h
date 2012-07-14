@@ -17,15 +17,14 @@
 
 @interface DRPickLocationViewController : UIViewController <MKMapViewDelegate>
 {
+    id <DRPickLocationViewControllerDelegate> delegate;
     MKMapView *_mapView;
 
     UILongPressGestureRecognizer *_longPressGestureRecognizer; 
     MKPointAnnotation *_mapPin;
-
-    NSMutableDictionary *_itemDictionary;
 }
 
-@property (nonatomic, copy, readwrite) NSMutableDictionary *itemDictionary;
+@property (nonatomic, assign, readwrite) id <DRPickLocationViewControllerDelegate> delegate;
 @property (nonatomic, readonly) IBOutlet MKMapView *mapView;
 
 @end
