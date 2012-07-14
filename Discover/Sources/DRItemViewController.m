@@ -51,7 +51,7 @@
 #pragma mark -
 #pragma mark UIViewController
 
-static const CGFloat kDRMapHeight = 250.0f;
+static const CGFloat kDRMapHeight = 200.0f;
 
 - (void)viewDidLoad
 {
@@ -61,8 +61,9 @@ static const CGFloat kDRMapHeight = 250.0f;
     self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
     
     // tableview header
-//    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, kDRMapHeight)] autorelease];
+    self.mapView = [[[MKMapView alloc] initWithFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, kDRMapHeight)] autorelease];
 //    self.mapView.delegate = self;
+//    self.mapView.scrollEnabled = NO;
 //    self.tableView.tableHeaderView = self.mapView;
 
     // right button
@@ -77,6 +78,18 @@ static const CGFloat kDRMapHeight = 250.0f;
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return YES;
+}
+
+- (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration
+{
+    if (( toInterfaceOrientation == UIInterfaceOrientationPortrait ) || ( toInterfaceOrientation == UIInterfaceOrientationPortraitUpsideDown ))
+    {
+        self.view = self.tableView;
+    }
+    else
+    {
+        self.view = self.mapView;
+    }
 }
 
 #pragma mark -

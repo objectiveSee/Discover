@@ -17,7 +17,7 @@
 
 @interface DRPickLocationViewController : UIViewController <MKMapViewDelegate>
 {
-    id <DRPickLocationViewControllerDelegate> delegate;
+    id <DRPickLocationViewControllerDelegate> _delegate;
     MKMapView *_mapView;
 
     UILongPressGestureRecognizer *_longPressGestureRecognizer; 
