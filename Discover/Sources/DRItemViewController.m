@@ -7,7 +7,8 @@
 //
 
 #import "DRItemViewController.h"
-#import "DRItemTableViewCell.h"
+//#import "DRItemTableViewCell.h"
+#import "DRCustomTableViewCell.h"
 
 #import "UIView+Origami.h"
 #import "NSDate+Additions.h"
@@ -73,6 +74,10 @@ static const CGFloat kDRMapHeight = 200.0f;
                                                                    action:@selector(_postButtonWasPressed:)];
     [self.navigationItem setRightBarButtonItem:rightButton];
     [rightButton release];
+    
+    // register DRCustomerTableViewCell NIB
+    UINib *nib = [UINib nibWithNibName:@"DRCustomTableViewCell" bundle:nil];
+    [[self tableView] registerNib:nib forCellReuseIdentifier:@"DRCustomTableViewCell"];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -101,7 +106,7 @@ static const CGFloat kDRMapHeight = 200.0f;
     {
         id object = [self objectAtIndex:indexPath];
         NSParameterAssert(object);
-        return [DRItemTableViewCell preferredHeightForObject:object width:tableView.frame.size.width];
+        return [DRCustomTableViewCell preferredHeightForObject:object width:tableView.frame.size.width];
     }
     return 44.0f;
 }
@@ -160,20 +165,41 @@ static const CGFloat kDRMapHeight = 200.0f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
-    static NSString *identifier = @"Cell";
-    DRItemTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    static NSString *identifier = @"DRCustomTableViewCell";
+    DRCustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
-        cell = [[DRItemTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        cell = [[DRCustomTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
     }
     
-    cell.detailTextLabel.text = [object objectForKey:@"text"];
-    
+    // set creator
     PFUser *creator = [object objectForKey:@"creator"];
     NSParameterAssert(creator);
-    cell.textLabel.text = [NSString stringWithFormat:@"From %@",[creator username]];
     
+    // set userString
+    NSString *userString = [NSString stringWithString:[creator username]];
+    
+    // check for location
+    PFGeoPoint *geo = [object objectForKey:@"location"];
+    
+    NSString *userAndLocationString = [NSString stringWithString:@""];
+    
+    // get locationString & set userNameAndLocationLabel
+    if (geo) {
+        NSString *locationString = [NSString stringWithFormat:@"(%.1f,%1.f)",geo.latitude,geo.longitude];
+        userAndLocationString = [NSString stringWithFormat:@"%@ @ %@",userString,locationString];
+    } else {
+        userAndLocationString = [NSString stringWithFormat:@"%@",userString];
+    }
+    
+    [[cell userNameAndLocationLabel] setText:userAndLocationString];
+    
+    // set timeString
     NSParameterAssert(object.createdAt);
-    cell.dateLabel.text = [object.createdAt recentDateAndTimeString];
+    NSString *timeString = [NSString stringWithFormat:@"%@ ago",[[object createdAt] recentDateAndTimeString]];
+    [[cell timeLabel] setText:timeString];
+    
+    // set messageLabel
+    [[cell messageLabel] setText:[object objectForKey:@"text"]];
         
     //    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
     //    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];
