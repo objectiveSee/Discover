@@ -119,7 +119,20 @@
     PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+        btn.frame = CGRectMake(0, 0, 25, 25);
+        cell.accessoryView = btn;
     }
+    
+    NSInteger voteCount = [[object objectForKey:@"votes"] intValue];
+    
+    UIButton *button = (UIButton *)cell.accessoryView;
+    [button setTitle:[NSString stringWithFormat:@"%d",voteCount] forState:UIControlStateNormal];
+    
+    [button addTarget:self
+               action:@selector(_accessoryButtonTapped:withEvent:)
+     forControlEvents:UIControlEventTouchUpInside];
     
     PFObject *messages = [object objectForKey:@"messages"];
     
@@ -134,6 +147,35 @@
 //    cell.imageView.file = thumbnail;
     return cell;
 }
+
+- (void)_accessoryButtonTapped: (UIControl *) button withEvent: (UIEvent *) event
+{
+    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: [[[event touchesForView: button] anyObject] locationInView: self.tableView]];
+    if ( indexPath == nil )
+        return;
+    
+    [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
+}
+
+- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
+    PFObject *obj = [self objectAtIndex:indexPath];
+
+    [obj incrementKey:@"votes"];
+    [obj saveEventually:^(BOOL succeeded, NSError *error)
+     {
+         if ( succeeded == YES )
+         {
+             [self.tableView reloadData];
+         }
+     }];
+    
+    NSInteger voteCount = [[obj objectForKey:@"votes"] intValue];
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    UIButton *button = (UIButton *)cell.accessoryView;
+    [button setTitle:[NSString stringWithFormat:@"%d",voteCount + 1] forState:UIControlStateNormal];
+}
+
 /*
  // Override if you need to change the ordering of objects in the table.
  - (PFObject *)objectAtIndex:(NSIndexPath *)indexPath { 
