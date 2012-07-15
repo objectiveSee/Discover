@@ -134,13 +134,15 @@
                action:@selector(_accessoryButtonTapped:withEvent:)
      forControlEvents:UIControlEventTouchUpInside];
     
-    PFObject *messages = [object objectForKey:@"messages"];
+    //get & format date
+    NSDate *date = object.createdAt;
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateStyle:NSDateFormatterMediumStyle];
+    NSString *dateString = [dateFormatter stringFromDate:date];
     
-    NSArray *conversation = [messages objectForKey:@"conversation"];
-    NSDictionary *message0 = [conversation objectAtIndex:0];
-
     cell.textLabel.text = [object objectForKey:@"title"];
-    cell.detailTextLabel.text = [message0 objectForKey:@"message"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"@ %@",dateString];
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:11.0];
     
 //    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
 //    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];
