@@ -16,7 +16,7 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        lightBackgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"light-bk.png"]];
+        lightBackgroundColor = [[UIColor alloc] initWithPatternImage:[UIImage imageNamed:@"background_light"]];
     });
     return [[lightBackgroundColor retain] autorelease];
 }

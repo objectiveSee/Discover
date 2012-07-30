@@ -12,6 +12,7 @@
 #import "DRSettingsViewController.h"
 #import "DRItemCreateViewController.h"
 #import "DRSignUpViewController.h"
+#import "DRUtility.h"
 
 @interface DRAppDelegate ()
 - (void)_setApplicationAppearence;
@@ -38,7 +39,8 @@
     
     [Parse setApplicationId:@"netrY86MUvdf58YwPFIa8HLo9H1TL2awNznfmA4D"
                   clientKey:@"qIRJ9aHOHv8gW0ZdcZV3rukkbV1oaMvoU3HsfcaO"];
-    [PFFacebookUtils initializeWithApplicationId:@"a8993b27d7723ca60f69da100d766207"];
+    [PFFacebookUtils initializeWithApplicationId:@"174303732694752"];
+    [PFUser enableAutomaticUser];
     
     [self _setApplicationAppearence];
     
@@ -151,12 +153,15 @@
     self.tabBarController.viewControllers = [NSArray arrayWithObjects:navigationController1, navigationController2,navigationController3,nil];
     
     self.window.rootViewController = self.tabBarController;
+    
+    [self.tabBarController setSelectedIndex:1];
+    
+    [[DRUtility sharedUtility] syncCurrentUserFacebook];
 }
 
 - (void)showSignUp
 {
     DRSignUpViewController *signUpController = [[DRSignUpViewController alloc] init];
-    signUpController.delegate = self;
     self.window.rootViewController = signUpController;
     [signUpController release];
 }
@@ -188,7 +193,7 @@
         [self showMainApplication];
         [[PFUser currentUser] incrementKey:@"RunCount"];
         [[PFUser currentUser] saveInBackground];
-    }    
+    }
 }
 
 static const CGFloat kDRMinVersionSupportsUIAppearence = 5.0f;
@@ -199,7 +204,32 @@ static const CGFloat kDRMinVersionSupportsUIAppearence = 5.0f;
     if ( version >= kDRMinVersionSupportsUIAppearence )
     {        
         // Customize the navigation bar appearence
-        [[UINavigationBar appearance] setTintColor:[UIColor blackColor]];
+        [[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"backgroundNavigationBar"] 
+                                           forBarMetrics:UIBarMetricsDefault];
+        [[UITabBar appearance] setBackgroundImage:[UIImage imageNamed:@"backgroundTabBar"]];
+        
+        // customize barbutton items & buttons in navigation bar
+        [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundImage:[UIImage imageNamed:@"ButtonNavigationBar.png"] forState:UIControlStateNormal];
+        [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setBackgroundImage:[UIImage imageNamed:@"ButtonNavigationBarSelected.png"] forState:UIControlStateHighlighted];
+        [[UIButton appearanceWhenContainedIn:[UINavigationBar class], nil] setTitleColor:[UIColor colorWithRed:214.0f/255.0f green:210.0f/255.0f blue:197.0f/255.0f alpha:1.0f] forState:UIControlStateNormal];
+        
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage imageNamed:@"ButtonBack.png"]
+                                                          forState:UIControlStateNormal
+                                                        barMetrics:UIBarMetricsDefault];
+        
+        [[UIBarButtonItem appearance] setBackButtonBackgroundImage:[UIImage imageNamed:@"ButtonBackSelected.png"]
+                                                          forState:UIControlStateSelected
+                                                        barMetrics:UIBarMetricsDefault];
+        
+        [[UIBarButtonItem appearance] setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+                                                              [UIColor colorWithRed:214.0f/255.0f green:210.0f/255.0f blue:197.0f/255.0f alpha:1.0f],UITextAttributeTextColor, 
+                                                              [UIColor colorWithWhite:0.0f alpha:0.750f],UITextAttributeTextShadowColor, 
+                                                              [NSValue valueWithCGSize:CGSizeMake(0.0f, 1.0f)],UITextAttributeTextShadowOffset, 
+                                                              nil] forState:UIControlStateNormal];
+    }
+    else
+    {
+        NSLog(@"Warning. Device version (%f) does not support UIAppearence", version);
     }
 }
 

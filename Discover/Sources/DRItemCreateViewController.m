@@ -8,6 +8,9 @@
 
 #import "DRItemCreateViewController.h"
 #import "DRPickLocationViewController.h"
+#import "CSPlaceHolderTextView.h"
+
+///////////////////////////////////////////////////////////////
 
 @interface DRItemCreateViewController ()
 - (void)_rightBarButtonItemWasPressed:(id)sender;
@@ -19,14 +22,16 @@
 
 @end
 
+///////////////////////////////////////////////////////////////
+
 @implementation DRItemCreateViewController
 @synthesize location = _location;
 @synthesize descriptionTextView = _descriptionTextView;
-@synthesize titleTextField = _titleTextField;
 @synthesize delegate = _delegate;
 @synthesize parentObject = _parentObject;
-@synthesize itemToolbarView = _itemToolbarView;
 @synthesize addLocationButton = _addLocationButton;
+@synthesize keyboardAccessoryView = _keyboardAccessoryView;
+@synthesize locationRequired = _locationRequired;
 
 #pragma mark -
 #pragma mark Lifecycle
@@ -35,7 +40,8 @@
 {
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     if (self) {
-        self.title = @"Post";
+        self.title = @"Talk";
+        self.locationRequired = YES;
     }
     return self;
 }
@@ -54,17 +60,13 @@
 {
     [super viewDidAppear:animated];
 
-    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Next" style:UIBarButtonItemStyleBordered target:self action:@selector(_rightBarButtonItemWasPressed:)] autorelease];    
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Post" style:UIBarButtonItemStyleBordered target:self action:@selector(_rightBarButtonItemWasPressed:)] autorelease];    
     
-    if ( self.parentObject != nil )
-    {
-        self.titleTextField.hidden = YES;   // hide if parent. only new items have title
-    }
+    self.descriptionTextView.inputAccessoryView = self.keyboardAccessoryView;
+    [self.descriptionTextView setPlaceholder:@"Say something..."];
+    
+        [self.descriptionTextView becomeFirstResponder];
+    /// @todo The descriptionTextView needs to resize based on keyboard visible or not
 }
 
 - (void)viewDidLoad
@@ -75,8 +77,6 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -138,108 +138,92 @@
 {
     self.navigationItem.leftBarButtonItem = nil;
     
-    [self.titleTextField resignFirstResponder];
     [self.descriptionTextView resignFirstResponder];
 }
 
 - (void)_rightBarButtonItemWasPressed:(id)sender
 {
+    
+    NSString *subject = nil;
+    NSString *message = self.descriptionTextView.text;
+        
     // validate
-    if (( self.descriptionTextView.text == nil ) || ( self.descriptionTextView.text.length < 1 ))
+    if (( message == nil ) || ( message.length < 1 ))
     {
         NSLog(@"Error. not enough text (description)");
         return;
     }
-    if (( self.titleTextField.text == nil ) || ( self.titleTextField.text.length < 1 ))
+    if ( self.parentObject == nil )
     {
-        if ( self.titleTextField.hidden == NO )
+        // get subject
+        NSRange range = [message rangeOfString:@"\n"];
+        if (( range.length == 0 ) || ( range.location < 1 ))
         {
-            NSLog(@"Not enough text (title)");
+            NSLog(@"Error. no subject");
+            return;
+        }
+        subject = [message substringToIndex:range.location];
+        message = [message substringFromIndex:range.location+1];
+        if (( subject.length < 1 ) || ( message.length < 1 ))
+        {
+            NSLog(@"Error. subject parse message too short");
             return;
         }
     }
-    
-    [(UIBarButtonItem *)sender setEnabled:NO];
-    
-    if ( self.parentObject != nil )
+    if (( self.locationRequired == YES ) && ( self.location == nil ))
     {
-        NSLog(@"Creating message with parent");
-        NSString *objectID = [self.parentObject objectId];
-        NSString *messageText = self.descriptionTextView.text;
-        PFObject *newMessage = [PFObject objectWithClassName:@"Message"];
-        [newMessage setObject:[PFUser currentUser] forKey:@"creator"];
-        [newMessage setObject:messageText forKey:@"text"];
-        [newMessage setObject:self.parentObject forKey:@"parent"];
-        if ( self.location != nil )
-        {
-            [newMessage setObject:self.location forKey:@"location"];
-        }
+        NSLog(@"Error. no location");
+        return;
+    }
     
-        [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-         {
-             if ( succeeded == YES )
-             {
-                 NSLog(@"Message created!");
-                 if ( self.delegate )
-                 {
-                     [self.delegate DRItemCreateViewController:self didCreateItem:newMessage];
-                 }
-                 [self _pushNewMessage:messageText channelID:objectID];
-                 [self _subscribeToChannel:objectID];
-             }
-             else
-             {
-                 NSLog(@"Failed to send message");
-             }
-         }
-         ];
+    // disable UI
+    [(UIBarButtonItem *)sender setEnabled:NO];
+
+    // create object
+    PFObject *newMessage = [PFObject objectWithClassName:@"Message"];
+    
+    if ( self.parentObject == nil )
+    {
+        // create new message and new item
+        PFObject *newItem = [PFObject objectWithClassName:@"Item"];
+        
+        NSParameterAssert(self.location);
+        [newItem setObject:self.location forKey:kDRItemTableKeyLocation];
+        [newItem setObject:subject forKey:kDRItemTableKeyTitle];
+        [newItem setObject:[PFUser currentUser] forKey:kDRItemTableKeyCreator];
+        [newItem saveEventually];
+        
+        [newMessage setObject:newItem forKey:kDRMessageTableKeyParent];
     }
     else
     {
-        NSParameterAssert(self.location);   // todo fix UI to prevent user from reaching here if location is nil
-        
-        NSLog(@"Creating a new item (no parent)");
-        NSString *messageText = self.descriptionTextView.text;
-        PFObject *newItem = [PFObject objectWithClassName:@"Item"];
-        [newItem setObject:[PFUser currentUser] forKey:@"creator"];
-        [newItem setObject:self.titleTextField.text forKey:@"title"];
-        [newItem setObject:self.location forKey:@"location"];
-        
-        PFObject *firstMessage = [PFObject objectWithClassName:@"Message"];
-        [firstMessage setObject:[PFUser currentUser] forKey:@"creator"];
-        [firstMessage setObject:messageText forKey:@"text"];
-        [firstMessage setObject:newItem forKey:@"parent"];
-        [firstMessage setObject:self.location forKey:@"location"];
-        
-        [firstMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
-         {
-             if ( succeeded == YES )
-             {
-                 NSString *objectID = [newItem objectId];
-                 NSParameterAssert(objectID);
-                 NSLog(@"New Item created!");
-                 [self _pushNewMessage:messageText channelID:objectID];
-                 [self _subscribeToChannel:objectID];
-             }
-             else
-             {
-                 NSLog(@"Failed to create item");
-             }
-         }
-         ];
+        // existing object (continuing conversation)
+        [newMessage setObject:self.parentObject forKey:kDRMessageTableKeyParent];
     }
-    
-    /**
-
-    
-    DRPickLocationViewController *locationPicker = [[DRPickLocationViewController alloc] init];
-    
-    NSMutableDictionary *dict = [[[NSMutableDictionary alloc] initWithObjectsAndKeys:self.titleTextField.text, @"title", self.descriptionTextView.text, @"description", nil] autorelease];
-    locationPicker.itemDictionary = dict;
-    
-    [self.navigationController pushViewController:locationPicker animated:YES];
-    [locationPicker release];
-     */
+    [newMessage setObject:[PFUser currentUser] forKey:kDRMessageTableKeyCreator];
+    [newMessage setObject:message forKey:kDRMessageTableKeyText];
+    if ( self.location != nil )
+    {
+        [newMessage setObject:self.location forKey:kDRMessageTableKeyLocation];
+    }
+    [newMessage saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error)
+     {
+         if ( succeeded == YES )
+         {
+             NSLog(@"Message created!");
+             if ( self.delegate )
+             {
+                 [self.delegate DRItemCreateViewController:self didCreateItem:newMessage];
+             }
+             //          [self _pushNewMessage:message channelID:objectID];
+             //          [self _subscribeToChannel:objectID];
+         }
+         else
+         {
+             NSLog(@"Failed to send message");
+         }
+     }
+     ];
 }
 
 - (void)_subscribeToChannel:(NSString *)channelID

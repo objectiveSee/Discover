@@ -2,12 +2,16 @@
 //  DRSignUpViewController.h
 //  Discover
 //
-//  Created by Danny Ricciotti on 7/13/12.
 //  Copyright (c) 2012 CouchSurfing International. All rights reserved.
 //
 
-#import <Parse/Parse.h>
+@interface DRSignUpViewController : UIViewController
+{
+    UIButton *_fbButton;
+}
 
-@interface DRSignUpViewController : PFSignUpViewController
+- (IBAction)facebookButtonWasPressed:(id)sender;
+
+@property (nonatomic, retain, readonly) IBOutlet UIButton *fbButton;
 
 @end

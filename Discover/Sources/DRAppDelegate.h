@@ -7,8 +7,6 @@
 //  Copyright (c) 2012 CouchSurfing International. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-
 @interface DRAppDelegate : UIResponder <UIApplicationDelegate, UITabBarControllerDelegate, PFSignUpViewControllerDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

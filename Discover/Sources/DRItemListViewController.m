@@ -19,13 +19,6 @@
 {
     self = [super initWithStyle:style];
     if (self) {
-        // Custom the table
-        
-        // The className to query on
-        self.className = @"Item";
-        
-        // The key of the PFObject to display in the label of the default cell style
-//        self.textKey = @"foo";
         
         // Whether the built-in pull-to-refresh is enabled
         self.pullToRefreshEnabled = YES;
@@ -36,7 +29,7 @@
         // The number of objects to show per page
         self.objectsPerPage = 25;
         
-        self.title = @"Discover";
+        self.title = @"Discover";        
     }
     return self;
 }
@@ -45,9 +38,11 @@
 
 - (void)viewDidLoad
 {
+//    [self.tableView setSeparatorStyle:UITableViewCellSeparatorStyleNone];
     [super viewDidLoad];
     
-    self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
+//    self.tableView.backgroundColor = [UIColor DRLightBackgroundColor];
+    self.tableView.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -94,24 +89,20 @@
     // This method is called before a PFQuery is fired to get more objects
 }
 
- // Override to customize what kind of query to perform on the class. The default is to query for
+// Override to customize what kind of query to perform on the class. The default is to query for
 // all objects ordered by createdAt descending.
-- (PFQuery *)queryForTable {
-    PFQuery *query = [PFQuery queryWithClassName:self.className];
-    
-    // If no objects are loaded in memory, we look to the cache first to fill the table
-    // and then subsequently do a query against the network.
-    if ([self.objects count] == 0) {
-        query.cachePolicy = kPFCachePolicyCacheThenNetwork;
-    }
-    
-//    [query includeKey:@"messages"];
-    
+- (PFQuery *)queryForTable 
+{
+    PFQuery *itemsQuery = [PFQuery queryWithClassName:@"Item"];
+    itemsQuery.cachePolicy = kPFCachePolicyNetworkElseCache;        
     // @todo customize the query to sort by geo location
 //    [query whereKey:@"location" nearGeoPoint:userGeoPoint];
-    [query orderByDescending:@"updatedAt"];
-
-    return query;
+    [itemsQuery orderByDescending:@"updatedAt"];
+    
+    PFQuery *userQuery = [PFQuery queryWithClassName:@"User"];
+    [userQuery whereKey:kDRItemTableKeyCreator matchesKey:kDRKeyObjectID inQuery:itemsQuery];
+    
+    return itemsQuery;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath object:(PFObject *)object {
@@ -119,21 +110,9 @@
     PFTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (!cell) {
         cell = [[PFTableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:identifier];
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-        btn.frame = CGRectMake(0, 0, 25, 25);
-        cell.accessoryView = btn;
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
-    NSInteger voteCount = [[object objectForKey:@"votes"] intValue];
-    
-    UIButton *button = (UIButton *)cell.accessoryView;
-    [button setTitle:[NSString stringWithFormat:@"%d",voteCount] forState:UIControlStateNormal];
-    
-    [button addTarget:self
-               action:@selector(_accessoryButtonTapped:withEvent:)
-     forControlEvents:UIControlEventTouchUpInside];
-    
+        
     //get & format date
     NSDate *date = object.createdAt;
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
@@ -144,38 +123,17 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"@ %@",dateString];
     cell.detailTextLabel.font = [UIFont systemFontOfSize:11.0];
     
-//    PFFile *thumbnail = [object objectForKey:@"thumbnail"];
-//    cell.imageView.image = [UIImage imageNamed:@"placeholder.jpg"];
-//    cell.imageView.file = thumbnail;
+    /**
+     @todo Add user avatars
+    PFUser *creator = [object objectForKey:kDRItemTableKeyCreator];
+    NSParameterAssert(creator);
+    
+    PFFile *thumbnail = [creator objectForKey:@"thumbnail"];
+    cell.imageView.image = [UIImage imageNamed:@"AvatarPlaceholder"];
+    cell.imageView.file = thumbnail;
+     */
+     
     return cell;
-}
-
-- (void)_accessoryButtonTapped: (UIControl *) button withEvent: (UIEvent *) event
-{
-    NSIndexPath * indexPath = [self.tableView indexPathForRowAtPoint: [[[event touchesForView: button] anyObject] locationInView: self.tableView]];
-    if ( indexPath == nil )
-        return;
-    
-    [self.tableView.delegate tableView: self.tableView accessoryButtonTappedForRowWithIndexPath: indexPath];
-}
-
-- (void)tableView:(UITableView *)tableView accessoryButtonTappedForRowWithIndexPath:(NSIndexPath *)indexPath {
-    PFObject *obj = [self objectAtIndex:indexPath];
-
-    [obj incrementKey:@"votes"];
-    [obj saveEventually:^(BOOL succeeded, NSError *error)
-     {
-         if ( succeeded == YES )
-         {
-             [self.tableView reloadData];
-         }
-     }];
-    
-    NSInteger voteCount = [[obj objectForKey:@"votes"] intValue];
-    
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    UIButton *button = (UIButton *)cell.accessoryView;
-    [button setTitle:[NSString stringWithFormat:@"%d",voteCount + 1] forState:UIControlStateNormal];
 }
 
 /*
